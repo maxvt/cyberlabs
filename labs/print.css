@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+@page {
+	@top { content: string(document_name) }
+	@bottom { content: "Page " counter(page) " of " counter(pages) }
+}
+
+@page:first {
+	@top { content: none }
+	@bottom { content: none }
+}
+
+h1 { string-set: document_name content() }
+
+.fn {
+	display: prince-footnote;
+	counter-increment: footnote;
+	font-size: 10pt;
+	footnote-style-position: inside
+}
+
+samp {
+	/* Reduce font size for print, so long lines would fit */
+	font-size: 9pt
+}
+
+q+div.sln { page-break-before: avoid }

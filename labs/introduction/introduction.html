@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Installation and First Steps Lab, EC 521 Fall 2013</title>
+    <link rel="stylesheet" media="all" href="../common.css" />
+    <link rel="stylesheet" media="print" href="../print.css" />
+    <script type="text/javascript" src="../jquery-2.0.3.js"></script>
+	<script type="text/javascript" src="../print.js"></script>
+</head>
+
+<body>
+    <h1>Introduction to Lab Setup<span class="sln"> - Solution</span></h1>
+	<h2>EC 521 Cybersecurity, Fall 2013, Lab 1</h2>
+
+	<div class="lab">	
+    <p>The course's labs involve two machines: the &quot;attacker&quot; and the &quot;target&quot;. During the course, you will attempt various investigations and attacks on the target machine using the attacker machine. Both attacker and target are Linux-based virtual machines that will be run by VMWare and will form a private, virtual network on your (or the lab's) computer.</p>
+	<p>There are two possible ways to do the lab assignments for this course:</p>
+	<ol>
+	    <li>Do the labs on your personal laptop using freeVMWare virtualization software that you will install (Windows instructions are provided below).</li>
+	    <li>Do the labs in Lab 307 using VMWare software installed on machines in the lab.</li>
+	</ol>
+    
+	<h2>Installing VMWare</h2>
+	<p>VMWare Player is a free version of VMWare virtualization software. It allows users to run multiple instances of x86 32 or 64-bit operating systems on a single physical computer.</p>
+	<h3>Windows host</h3>
+    <ol>
+        <li>Download VMWare Player 5 <a href="https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/5_0">from VMWare</a> or from \\ad\eng\courses\ec\ec521\software\VMWare-player-5.0.2-1031769.exe and install it.</li>
+        <li>Run VMWare Player.</li>
+    </ol>
+<h3>Lab 307 host</h3>
+    <p>VMWare Workstation (a paid, more advanced version of the Player) should already be installed on all machines of Lab 307.</p>
+    <ol>
+        <li>Log in to a machine.</li>
+        <li>Either find VMWare Workstation in the menus (Applications &gt; System Tools &gt; VMWare Workstation), or open it from a terminal by typing <kbd>vmware &amp;</kbd>.</li>
+        <li>Skip any warnings about evaluation period.</li>
+    </ol>
+<h3>Mac host</h3>
+    <p>VMWare Player is not available on Mac OSX. The corresponding Mac product is VMWare Fusion but it is not free (there is a 30-day trial). Parallels can convert VMWare images but version 7 will not run the attacker VM successfully. Unless you already have VMWare Fusion, or would like to acquire it for other reasons than this course, we would suggest you to do the labs in Lab 307.</p>
+<h3>Linux host</h3>
+    <p> VMWare Player 5 is available for Linux and should be installable either by <a href="https://my.vmware.com/web/vmware/free#desktop_end_user_computing/vmware_player/5_0">downloading from VMWare</a> or through your distribution's package manager. We may not be able to support you if there are any VMWare- or host-specific issues should you choose to use your personal Linux machine for labs.</p>
+<h2>Installing the attacker virtual machine</h2>
+<p><a href="http://www.kali.org/">Kali Linux</a> is a distribution based on the Debian GNU/Linux distribution aimed at digital forensics and penetration testing users maintained and funded by Offensive Security. Kali provides users with easy access to a comprehensive and large collection of security-related tools ranging from port scanners to password crackers.</p>
+<p>There are three ways to run the attacker VM. When in the lab, the professor will tell you whether to use a persistent or non-persistent image. On your machine, the image is always persistent, but if it gets messed up you can always delete it and copy it again from the reference on the course's network drive.</p>
+<ol>
+    <li>If you choose not to use Lab 307, you will copy the virtual machine image to your PC and use it.
+        <ol>
+            <li>Copy the contents of <tt>\\ad\eng\courses\ec\ec521\configuredVMs\Kali Linux</tt> to your machine.</li>
+            <li>In VMWare Player, choose <em>File &gt; Open a Virtual Machine</em></li>
+            <li>Navigate to the location of the VM on your computer.</li>
+            <li>Select &quot;Clone of kali-linux....vmx&quot;.</li>
+            <li>Click &quot;<em>Play virtual machine</em>&quot; to start the VM. Ignore all warnings from VMWare.</li>
+        </ol>
+    </li>
+    <li>In Lab 307, each machine has a copy of the attacker VM in <tt>/usr/VM/Kali-Linux</tt>. This copy is not persistent (any changes to the VM will disappear once the VM is powered off).
+        <ol>
+            <li>Open a terminal and type: <kbd>vmrun start /usr/VM/Kali-Linux/kali-linux-i386-gnome-vm.vmx</kbd>.</li>
+            <li>Ignore all warnings from VMWare.</li>
+        </ol>
+    </li>
+    <li>In Lab 307, each student has a separate, persistent (changes to the VM are persisted between power-offs) copy of the attacker VM.
+        <ol>
+            <li>The process is the same as in step 2, but the location of the VM is <tt>/ad/eng/courses/ec/ec521/students/fall2013/&lt;your username&gt;/Kali Linux</tt>.</li>
+            <li>Each student only has access to his VM image, other images will fail to start.</li>
+            <li>It is a good idea to change the hostname of your VM to easily distinguish it from other images (use <kbd>hostname</kbd>).</li>
+        </ol>
+    </li>
+</ol>
+<p>After starting the VM and waiting for it to boot, you can log in as <tt>root</tt> with password <tt>toor</tt>.</p>
+<p>Note that, just like modern computers, these VMs should be shut down in an orderly fashion and not just powered off. To shut down the Kali VM, enter the command <kbd>shutdown -h -P now</kbd> from an open terminal.</p>
+<h2>Installing the target virtual machine</h2>
+<p><a href="https://community.rapid7.com/docs/DOC-1875">Metasploitable</a> is an intentionally vulnerable Linux virtual machine. This VM can be used to conduct security training, test security tools, and practice common penetration testing techniques. You should never run Metasploitable as a machine exposed directly to the Internet, as it will be eventually exploited and used for nefarious activities.</p>
+<p>The same three ways apply for the target machine as well:</p>
+<ol>
+    <li>The image for your PC can be found in <tt>\\ad\eng\courses\ec\ec521\configuredVMs\Metasploitable2</tt> and the VM file is the only .vmx file in the folder.</li>
+    <li>The non-persistent VM on a lab machine is located in <tt>/usr/VM/Metasploitable2/Metasploitable2-Linux.vmx</tt>, so the command to run it would be 
+    <kbd>vmrun start /usr/VM/Metasploitable2/Metasploitable2-Linux.vmx</kbd></li>
+    <li>The persistent VM can be found in <tt>/ad/eng/courses/ec/ec521/students/fall2013/&lt;your username&gt;/Metasploitable</tt>.</li>
+</ol>
+<p>After starting the VM and waiting for it to boot, you can log in as <tt>msfadmin</tt> with password <tt>msfadmin</tt>.</p>
+<p>Same to Kali, the Metasploit VM should be shut down in an orderly fashion and not just powered off. To shut down the Metasploit VM, enter the command <kbd>sudo shutdown -P now</kbd> from the console, after logging in. Once you see &quot;System halted&quot; in the terminal, it is safe to power down the VM.</p>
+</div>
+<h2>First Steps</h2>
+<div class="lab">
+	<p>Now that both virtual machines are set up and running, let's try a few basic tasks to see everything works and to get you comfortable with using the VMs.</p>
+	<p style="page-break-after:avoid">For the questions below, please consider the following illustration of how the virtual machines and the host machine network connections are related:</p>
+	<p><img src="intro-network.svg" width="100%" alt="Diagram of virtual/physical setup" /></p>
+</div>
+<ol>
+    <li>Log in to both virtual machines.</li>
+    <li>Find out the IP addresses of both VMs using a terminal.</li>
+    <q>Which command did you use?</q>
+    <div class="sln">
+        <p>This public repository does not include lab solutions. Please contact
+the authors if you wish to obtain the reference solutions. Note
+that the build system always generates both lab and solution files, even
+when the sources do not include any solution-related markup.</p>
+    </div>    
+    <q>What is the IP address of Kali?</q>
+    <q>What is the IP address of Metasploitable?</q>
+    <q>Are the two machines in the same subnet? Explain.</q>
+    <q>Are the two machines globally addressable / reachable from the Internet? Explain.</q>
+    <li>Find out the public (reachable from the Internet) IP address of the host machine, using only the tools available on Kali.</li>
+    <q>Describe the method you have used.</q>
+    <q>What is the IP address of the host machine?</q>
+    <li>Using Kali's and Metasploitable's terminals, examine the list of open ports (TCP and UDP) on each machine.</li>
+    <q>Which ports are open on Kali?</q>
+    <q>How many ports are open on Metasploitable?</q>
+    <q>Comparing the number of ports, what is your opinion on which machine is more secure?</q>
+    <li>Create a text file on Kali, transfer it over FTP to Metasploitable, and display it from Metasploitable.</li>
+    <q>Submit a console log or screenshot showing the FTP session on Kali.</q>
+    <li>On Metasploitable, find out the version numbers of services running on the following ports: 3306, 6667 and 5900 - without using any of the tools from Kali.</li>
+    <q>Submit a console log or screenshot showing your actions.</q>
+</ol>
+
+<div class="lab">
+	<h2>Submission Instructions</h2>
+	<p>Please submit a single PDF file containing answers to all questions. 
+		The file should be named with both students' last names (in alphabetical order) 
+		and &quot;lab1&quot; joined by underscores, for example: <tt>jones_smith_lab1.pdf</tt>.</p>
+	<p>To create a PDF on a lab machine, you can use the office suite (LibreOffice) 
+	    word processor and <tt>File &gt; Export to PDF</tt>.</p>
+</div>
+</body>
+</html>

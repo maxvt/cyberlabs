@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="26cm" height="14cm" viewBox="118 28 503 261" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="120" y="30" width="500" height="240"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="120" y="30" width="500" height="240"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="370" y="154.8">
+      <tspan x="370" y="154.8"></tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #e5e5e5" x="140" y="50" width="200" height="50"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="140" y="50" width="200" height="50"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="240" y="79.8">
+      <tspan x="240" y="79.8">Attacker / Kali Linux</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #e5e5e5" x="400" y="50" width="200" height="50"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="400" y="50" width="200" height="50"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="500" y="79.8">
+      <tspan x="500" y="79.8">Target / Metasploitable</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffa500" d="M 171.667 90 L 218.333,90 C 224.777,90 230,94.9249 230,101 C 230,107.075 224.777,112 218.333,112 L 171.667,112 C 165.223,112 160,107.075 160,101 C 160,94.9249 165.223,90 171.667,90z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 171.667 90 L 218.333,90 C 224.777,90 230,94.9249 230,101 C 230,107.075 224.777,112 218.333,112 L 171.667,112 C 165.223,112 160,107.075 160,101 C 160,94.9249 165.223,90 171.667,90"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="195" y="106">
+      <tspan x="195" y="106">lo0</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffa500" d="M 521.667 90 L 568.333,90 C 574.777,90 580,94.9249 580,101 C 580,107.075 574.777,112 568.333,112 L 521.667,112 C 515.223,112 510,107.075 510,101 C 510,94.9249 515.223,90 521.667,90z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 521.667 90 L 568.333,90 C 574.777,90 580,94.9249 580,101 C 580,107.075 574.777,112 568.333,112 L 521.667,112 C 515.223,112 510,107.075 510,101 C 510,94.9249 515.223,90 521.667,90"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="545" y="106">
+      <tspan x="545" y="106">eth0</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffa500" d="M 431.667 90 L 478.333,90 C 484.777,90 490,94.9249 490,101 C 490,107.075 484.777,112 478.333,112 L 431.667,112 C 425.223,112 420,107.075 420,101 C 420,94.9249 425.223,90 431.667,90z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 431.667 90 L 478.333,90 C 484.777,90 490,94.9249 490,101 C 490,107.075 484.777,112 478.333,112 L 431.667,112 C 425.223,112 420,107.075 420,101 C 420,94.9249 425.223,90 431.667,90"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="455" y="106">
+      <tspan x="455" y="106">lo0</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffa500" d="M 261.667 90 L 308.333,90 C 314.777,90 320,94.9249 320,101 C 320,107.075 314.777,112 308.333,112 L 261.667,112 C 255.223,112 250,107.075 250,101 C 250,94.9249 255.223,90 261.667,90z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 261.667 90 L 308.333,90 C 314.777,90 320,94.9249 320,101 C 320,107.075 314.777,112 308.333,112 L 261.667,112 C 255.223,112 250,107.075 250,101 C 250,94.9249 255.223,90 261.667,90"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="285" y="106">
+      <tspan x="285" y="106">eth0</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #e5e5e5" x="140" y="180" width="460" height="60"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="140" y="180" width="460" height="60"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="149" y="214.8">
+      <tspan x="149" y="214.8">Host OS (Windows/Linux)</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffa500" d="M 345.088 170 L 393.438,170 C 400.113,170 405.525,174.925 405.525,181 C 405.525,187.075 400.113,192 393.438,192 L 345.088,192 C 338.412,192 333,187.075 333,181 C 333,174.925 338.412,170 345.088,170z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 345.088 170 L 393.438,170 C 400.113,170 405.525,174.925 405.525,181 C 405.525,187.075 400.113,192 393.438,192 L 345.088,192 C 338.412,192 333,187.075 333,181 C 333,174.925 338.412,170 345.088,170"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="369.263" y="186">
+      <tspan x="369.263" y="186">vmnet8</tspan>
+    </text>
+  </g>
+  <g>
+    <path style="fill: #ffa500" d="M 345.825 228 L 394.175,228 C 400.851,228 406.262,232.925 406.262,239 C 406.262,245.075 400.851,250 394.175,250 L 345.825,250 C 339.149,250 333.738,245.075 333.738,239 C 333.738,232.925 339.149,228 345.825,228z"/>
+    <path style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" d="M 345.825 228 L 394.175,228 C 400.851,228 406.262,232.925 406.262,239 C 406.262,245.075 400.851,250 394.175,250 L 345.825,250 C 339.149,250 333.738,245.075 333.738,239 C 333.738,232.925 339.149,228 345.825,228"/>
+    <text font-size="12.7998" style="fill: #000000;text-anchor:middle;font-family:sans-serif;font-style:normal;font-weight:normal" x="370" y="244">
+      <tspan x="370" y="244">eth0</tspan>
+    </text>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="285,121.736 285,141 369.263,141 369.263,160.264 "/>
+    <polygon style="fill: #000000" points="285,114.236 290,124.236 285,121.736 280,124.236 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="285,114.236 290,124.236 285,121.736 280,124.236 "/>
+    <polygon style="fill: #000000" points="369.263,167.764 364.263,157.764 369.263,160.264 374.263,157.764 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="369.263,167.764 364.263,157.764 369.263,160.264 374.263,157.764 "/>
+  </g>
+  <g>
+    <polyline style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="545,121.736 545,141 369.263,141 369.263,160.264 "/>
+    <polygon style="fill: #000000" points="545,114.236 550,124.236 545,121.736 540,124.236 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="545,114.236 550,124.236 545,121.736 540,124.236 "/>
+    <polygon style="fill: #000000" points="369.263,167.764 364.263,157.764 369.263,160.264 374.263,157.764 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="369.263,167.764 364.263,157.764 369.263,160.264 374.263,157.764 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="370.186" y1="259.734" x2="370.551" y2="278.766"/>
+    <polygon style="fill: #000000" points="370.043,252.236 375.233,262.138 370.186,259.734 365.235,262.33 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="370.043,252.236 375.233,262.138 370.186,259.734 365.235,262.33 "/>
+    <polygon style="fill: #000000" points="370.695,286.264 365.504,276.362 370.551,278.766 375.502,276.17 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="370.695,286.264 365.504,276.362 370.551,278.766 375.502,276.17 "/>
+  </g>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="370" y="210">
+    <tspan x="370" y="210"></tspan>
+  </text>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="369.462" y1="201.734" x2="369.801" y2="218.266"/>
+    <polygon style="fill: #000000" points="369.308,194.236 374.512,204.131 369.462,201.734 364.514,204.336 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="369.308,194.236 374.512,204.131 369.462,201.734 364.514,204.336 "/>
+    <polygon style="fill: #000000" points="369.954,225.764 364.75,215.869 369.801,218.266 374.748,215.664 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="369.954,225.764 364.75,215.869 369.801,218.266 374.748,215.664 "/>
+  </g>
+  <text font-size="10.1598" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="414.849" y="207.071">
+    <tspan x="414.849" y="207.071">Since there's only one address at eth0,</tspan>
+    <tspan x="414.849" y="219.771">NAT translation must be used</tspan>
+  </text>
+  <text font-size="12.7998" style="fill: #000000;text-anchor:start;font-family:sans-serif;font-style:normal;font-weight:normal" x="140" y="140">
+    <tspan x="140" y="140">Host machine</tspan>
+    <tspan x="140" y="156">(your laptop / lab PC)</tspan>
+  </text>
+</svg>

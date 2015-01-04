@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+body { line-height: 1.2 }
+
+h1, h2, h3 {
+	font-family: Helvetica, Arial, Tahoma, Geneva, sans-serif
+}
+
+/* Use this tag for sample console output students should be seeing */
+samp { 
+	display: block; white-space: pre; page-break-inside: avoid;
+	background-color: #eee; padding: 1em; margin: 1em 0;
+	font-family: Inconsolata, "Courier New", Courier, monospace;
+}
+
+/* Use this tag for questions to be answered by students */
+q { 
+	counter-increment: q
+}
+q::before { content: "Question " counter(q) ". " }
+q::after { content: none } /* Suppress ending quote inserted by some browsers */
+
+/* Use this class for tasks that students must do which are not questions--
+   screenshots, archives, etc. The styling for this is identical 
+   to question styling. */
+p.task, q {
+	display: block; 
+	border: 0.1em solid black; padding: 1em; margin: 1em 0;
+}
+
+/* Use this for open questions and review comments. */
+.tbd { 
+	background-color: #F66; padding: 0 5px
+}
+
+/* Use this to mark a solution to a lab question. */
+div.sln {
+	padding-left: 0.8em; 
+	border-left: 0.3em solid #390;
+	margin: 1em 0
+}
