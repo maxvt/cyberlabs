@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Intrusion Detection, EC 521 Fall 2013</title>
+    <link rel="stylesheet" media="all" href="../common.css" />
+    <link rel="stylesheet" media="print" href="../print.css" />
+    <script type="text/javascript" src="../jquery-2.0.3.js"></script>
+	<script type="text/javascript" src="../print.js"></script>
+</head>
+
+<body>
+    <h1>Intrusion Detection<span class="sln"> - Solution</span></h1>
+	<h2>EC 521 Cybersecurity, Fall 2013, Lab 8</h2>
+	
+	<div class="lab">
+    <p>This lab should be performed in groups of two students. 
+    Solutions should be submitted electronically via Blackboard Learn.</p>
+
+	<p>With the pervasiveness of the Internet, protection against malicious attacks is of the upmost importance. Network Intrusion Detection programs analyze the packets being sent in and out of a machine and search for malicious patterns or data in order to alert you of an attacker.    </p>
+	<p><img src="SnortLogo.gif" width="140" height="76" hspace="10" border="1" align="right" />In this lab, we will be using a  Network Intrusion Detection program called Snort. Snort is  open source and is primarily developed by Sourcefire. Snort monitors network traffic and analyzes it against a set of rules that can be compiled from user contributions and customized to a specific deployment. <br />
+	    We will be setting up Snort and testing it out against various types of network attacks to see if Snort detects the attack. We will then learn how rules are set up and attempt to create our own rule.</p>
+<h2>Installing Snort</h2>
+	<p>Check if Snort is already installed on Metasploitable by executing <kbd>dpkg-query -l snort</kbd>. If you get the following output, do the installation steps:</p>
+    <samp># dpkg-query -l snort
+dpkg-query: no packages found matching snort</samp>
+	<ol>
+	    <li><kbd>sudo nano /etc/apt/sources.list</kbd></li>
+        <li>Replace &quot;us.archive&quot; with &quot;old-releases&quot; whenever you see &quot;http://us.archive.ubuntu.com&quot;, the top 4 lines (all of them are on the first screen of the editor.) If you installed <tt>lynx</tt> in Lab 5, then this would already be done.</li>
+        <li>Type <kbd>sudo apt-get update</kbd></li>
+	    <li>Then type <kbd>sudo apt-get install snort</kbd></li>
+	    <li>Eventually, you should get to a setup screen that asks what network you would like Snort to be setup on. Just keep the default.</li></ol>
+    <p>Regardless of whether you have installed Snort now or if Snort
+    was already installed, check the configuration of Snort as follows:</p>
+    <ol>
+	    <li>Open a terminal and go to the <tt>/etc/snort</tt> directory.</li>
+	    <li> Explore the contents of the directory, particularly looking at <tt>snort.conf</tt>. You can also explore the rules directory to see how rules and signatures are set up.</li>
+	    <li> Open up the file using any text editor and uncomment the line: var HOME_NET $eth0_ADDRESS; comment out the line: var HOME_NET any.</li>
+        <samp># snort at.  Under Windows, this must be specified as
+# $(&lt;interfacename&gt;_ADDRESS), such as:
+# $(\Device\Packet_{12345678-90AB-CDEF-1234567890AB}_ADDRESS)
+
+<strong>var HOME_NET $eth0_ADDRESS</strong>
+
+# You can specify lists of IP addresses for HOME_NET
+# by separating the IPs with commas like this:
+#
+# var HOME_NET [10.1.1.0/24,192.168.1.0/24]
+#
+# MAKE SURE YOU DON'T PLACE ANY SPACES IN YOUR LIST!
+#
+# or you can specify the variable to be any IP address
+# like this:
+
+<strong># var HOME_NET any</strong>
+</samp>
+	    <li> Save the modified configuration file.</li>
+	    <li> Next, make sure there is a <tt>/etc/snort/log</tt> directory inside the snort folder, create it if it is not there. This is to make sure that the files created by Snort running in packet logger mode are stored. Make sure that log directory is empty. </li>
+</ol>
+	</div>
+<h2 style="counter-reset: chapter">Exploring Snort</h2>
+<p>Now that you have installed Snort, let us do a basic walkthrough of the different modes of operation of Snort.</p>
+<h3>Sniffer Mode</h3>
+<p>From Metasploitable's terminal,  run Snort in Sniffer Mode:</p>
+        <ol>
+            <li>The executable name is <kbd>snort</kbd></li>
+            <li>Combine the flags for displaying application level data; displaying link layer packet headers; and verbose output with sniffing on interface<kbd> eth0</kbd>.
+                If you do not get a screen looking like the following example, make sure you have followed all of the setup steps properly.</li>
+            <q>What is the complete command to run Snort in sniffer mode?</q>
+            <samp>msfadmin@metasploitable:/etc/snort$ sudo snort [parameters...]
+Running in packet dump mode
+
+    	--== Initializing Snort ==--
+Initializing Output Plugins!
+Var 'any_ADDRESS' defined, value len = 15 chars, value = 0.0.0.0/0.0.0.0
+Var 'lo_ADDRESS' defined, value len = 19 chars, value = 127.0.0.0/255.0.0.0
+Verifying Preprocessor Configurations!
+
+Initializing Network Interface eth0
+Decoding Ethernet on interface eth0
+Preprocessor/Decoder Rule Count: 0
+
+    	--== Initialization Complete ==--
+
+   ,,_ 	-*&gt; Snort! &lt;*-
+  o"  )~   Version 2.7.0 (Build 35)  
+   ''''	By Martin Roesch &amp; The Snort Team: http://www.snort.org/team.html
+       	(C) Copyright 1998-2007 Sourcefire Inc., et al.</samp>
+        </ol>
+<p>Send one ping packet (<tt>ping -c 1</tt>) to the IP of the Metasploitable from Kali.</p>
+    <q>Copy or screenshot the first line (the one with the time stamp) for
+    each of the packets exchanged as part of this ping attempt, as captured by snort.</q>
+    <q>How many
+    packets were seen travelling between Kali and Metasploitable while running the ping command? 
+    What is the top-level protocol for each of those packets?</q>
+<p>As you can see, snort running on the victim machine is picking up all traffic, not unlike Wireshark. This is the only thing Snort's sniffer mode does.</p>
+<p>Stop the capture and exit Snort by pressing Ctrl+C.</p>
+
+<h3>Packet Logger Mode</h3>
+    <p>Now we'll explore Snort in packet logger mode. </p>
+    <ol>
+        <li>Add <kbd>-l ./log</kbd> to the command you used to run Snort in sniffer mode; run the command from /etc/snort to be in the correct location for the logs.</li>
+        <li>While Snort is running in packet logger mode, open a telnet session from Kali to Metasploitable, do a successful login (you know the user/password by now) and exit the session.</li>
+        <li>Stop the capture and exit Snort.</li>
+    </ol>
+<p>The files are in a binary format, and there are several ways of interacting with them. For one, Snort can replay a capture file and show you the same output as if it was capturing the traffic live. You can combine the following command with other flags you have already discovered to get various levels of verbosity of output, same as with the live analysis.</p>
+<kbd># snort -r log/[your log file]</kbd>
+<q>What is the percentage of TCP, ARP and IP packets in the session capture you have just made? Submit a screenshot/console log with the relevant part of Snort output.</q>
+<p>From the documentation of the -r flag, you can see which file format Snort uses for the output file. Fortunately, another packet analysis tool you are already familiar with can parse these files, as you have learned when doing an idle scan with nmap. Copy the session capture file to Kali and open it with the tool.</p>
+<q>What is the name of the file format that Snort uses for its binary logs?</q>
+<q>Use the packet analysis tool to reconstruct the contents of the telnet session from the capture. Demonstrate with a single screenshot how insecure the <tt>telnet</tt> protocol is.</q>
+<q>Can you explain why the letters of the username input are repeated twice, in an interleaved fashion, in the telnet session capture?</q>
+<p>    Now you have seen how Snort works in packet logger mode.</p>
+<h3>Network Intrusion Detection Mode</h3>
+<p>The most common mode Snort is usually run in is  network intrusion detection mode. Use the following command:</p>
+<p><kbd>snort -dev -l ./log -h  [Metasploitable's IP address]/32 -c snort.conf -i eth0</kbd></p>
+<p>If there are issues, Snort will usually fail to run. If everything worked, there will be quite a bit of output, ending with &quot;Initialization Complete&quot; and the familiar-by-now Snort banner.</p>
+<p>Let us try several attacks we know and see if Snort detects them:</p>
+<ol>
+    <li>Perform a standard port scan from Kali to Metasploitable, with Snort running in intrusion detection mode.</li>
+    <li>Check the log directory after completing the port scan.</li>
+    <q>What is the difference in logging between Snort in Packet Logger mode and Snort in Intrusion Detection mode?</q>
+    <q>Take a screenshot of the relevant log showing Snort has detected the port scan. As part of the answer, provide the command you ran to perform the port scan.</q>
+    <li>Perform OS Fingerprinting from Kali on Metasploitable.</li>
+    <q>Was the attack detected? If yes, take a relevant screenshot and explain Snort output. As part of the answer, provide the command you ran to perform the fingerprinting.</q>
+    <li>Perform ARP Poisoning from Kali on Metasploitable.<br />
+If the attack is not detected when you try this at first, do not despair: perhaps the detection is still possible but is not
+    on by default. Search the Snort configuration file (<tt>snort.conf</tt>) for potentially useful
+    settings, configure them correctly, restart Snort and try to perform ARP Poisoning once again.<br />
+    (Hint: the official Snort documentation contains information about &quot;ARP Spoof&quot;, and search engine results on the topic have the info as well)
+    <br />
+    </li>
+    <q>Was the attack detected? If yes, take a relevant screenshot. Provide the changes (if any)
+    that you have made to Snort configuration.</q>
+</ol>
+<h2>Custom rules</h2>
+<p>One of the distinctive features of Snort is its customizable rule engine that allows a
+system administrator to tweak existing rules to minimize false alarms and also add new rules
+as new attacks are discovered.</p>
+<p>In this part we will try to write a rule that helps us detect the Apache Range DoS attack
+that you have used to great effect to slow down Metasploitable VM.</p>
+<ol>
+	<li>First, reproduce the attack and capture it with Wireshark to remind yourself of the
+    contents of the HTTP conversation between Kali and Metasploitable that triggers the exploit. Use port 80 instead of 8180, so that both the exploit attempts and your regular browsing would be seen by Snort on the same port.</li>
+    <li>Let's start with a simple rule that triggers every time there is a HTTP connection to our
+    server (Metasploitable).
+    <ol>
+    	<li>Create a file <tt>/etc/snort/rules/my.rules</tt>, with the following contents on one line:
+        <samp>alert tcp $EXTERNAL_NET any -> $HOME_NET 80 (msg:"Our HTTP rule&quot;;
+flow:established,to_server; sid:1000001;)</samp></li>
+        <li>Modify <tt>snort.conf</tt> to include your custom rule file.</li>
+        <li>Run Snort and test the new rule by navigating to the Mutillidae application from
+        the browser window open on Kali.</li>
+        <q>Submit a screenshot that shows our new rule being triggered in Snort.</q>
+        <q>Why is this rule not good enough to be usable for mitigating the Range DoS attack? There is more than one reason.</q>
+    </ol>
+    </li>
+	<li>Modify the rule to detect the Range DoS attack more accurately. Use 3 different
+    distinguishing features of this attack to restrict the rule further; our suggestion is
+    to use one non-payload option (for example, size of the request - look at the size of the 
+    request packet(s) in the attack capture and compare it to regular browsing from Kali to Mutillidae)
+    and two payload options (specific short strings of content that are both likely to be present in the HTTP request packet
+    sent by Range DoS attack, but would be very unlikely to appear in a regular browsing session). Answers to questions 2.9 and 2.10 of Lab 6 could guide you to some usable choices.</li>
+	<li>Remove the <tt>log/alert</tt> file. Test your rule by browsing around Mutillidae for a minute or two, and then running the exploit with RLIMIT set to 3. Your rule should trigger exactly three times.</li>
+    	<q>Submit the text of your updated rule (contents of my.rules)</q>
+        <q>The rule is now more specific and unlikely to interfere with regular browsing,
+        but is still not very useful in mitigating the attack - you can see it by setting RLIMIT high enough, running the exploit, and seeing the same CPU/memory spike as you saw in the other lab. Why is this still happening?</q>    
+</ol>
+
+<div class="lab">
+	<h2>Submission Instructions</h2>
+    <p>Please submit a single PDF file containing answers to all questions. 
+       The file should be named with both students' last names (in alphabetical order) 
+and &quot;lab8&quot; joined by underscores, for example: <tt>jones_smith_lab8.pdf</tt>.</p>
+    <p>To create a PDF on a lab machine, you can use the office suite (LibreOffice) 
+    word processor and <tt>File &gt; Export to PDF</tt>.</p>
+    <p>If screenshots are included in your submission, please make sure they are <strong>clearly readable</strong>.</p>
+</div>
+</body>
+</html>

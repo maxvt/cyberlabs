@@ -1,0 +1,166 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Google Hacking and Social Engineering, EC 521 Fall 2013</title>
+    <link rel="stylesheet" media="all" href="../common.css" />
+    <link rel="stylesheet" media="print" href="../print.css" />
+    <script type="text/javascript" src="../jquery-2.0.3.js"></script>
+	<script type="text/javascript" src="../print.js"></script>
+</head>
+
+<body>
+    <h1>Metasploit<span class="sln"> - Solution</span></h1>
+	<h2>EC 521 Cybersecurity, Fall 2013, Lab 6</h2>
+	
+	<div class="lab">
+    <p>This lab should be performed in groups of two students. 
+    Solutions should be submitted electronically via Blackboard Learn.</p>
+    
+    <p><a href="http://www.metasploit.com/">Metasploit</a> is a framework 
+    made to take advantage of known exploits discovered over the years. 
+    This framework helps verify new exploits (by automating the process 
+    of triggering and taking advantage of a newly discovered security issue) 
+    and can also be used to assess the security of a given network or host. 
+    The Metasploitable VM we use in our experiments contains many processes 
+    with known security issues that can be found and exploited using 
+    Metasploit's various modules.</p>
+    
+	<p>The goal of this lab is to become familiar with the Metasploit 
+    framework and its features. You will explore several exploit modules 
+    and their settings. You will then examine the actions of these exploits
+    and see how a security issue can be leveraged to gain remote access 
+    to a target machine without much effort.</p>
+    
+    <h2>Setup</h2>
+    <ol>
+        <li>Start both virtual machines and log in to Kali and Metasploitable.</li>
+        <li>Find out IP addresses of both machines and verify connectivity from Kali to Metasploitable by pinging.</li>
+        <li>Run Metasploit on Kali by typing <kbd>msfconsole</kbd> into a terminal.</li>
+    </ol>
+    <samp>root@kali:~# msfconsole
+     ,           ,
+    /             \
+   ((__---,,,---__))
+      (_) O O (_)_________
+         \ _ /            |\
+          o_o \   M S F   | \
+               \   _____  |  *
+                |||   WW|||
+                |||     |||
+
+
+Large pentest? List, sort, group, tag and search your hosts and services
+in Metasploit Pro -- type 'go_pro' to launch it now.
+
+       =[ metasploit v4.6.0-dev [core:4.6 api:1.0]
++ -- --=[ 1053 exploits - 590 auxiliary - 174 post
++ -- --=[ 275 payloads - 28 encoders - 8 nops
+
+msf ></samp>
+	</div>
+	
+<h2 style="counter-reset: chapter">Using Metasploit to compromise remote systems</h2>
+<h3>Exploiting the Unreal IRC Daemon</h3>
+    <p>Metasploitable is running many vulnerable services. The first process you will exploit is an Unreal IRC daemon (unrealircd) running on a certain port. The version of this daemon supplied on Metasploitable contains a backdoor that is triggered by sending the letters &quot;AB&quot; following a system command to the server on any listening port. Metasploit has a module that exploits this.</p>
+<ol>
+        <li> Type <kbd>use exploit/unix/irc/unreal_ircd_3281_backdoor</kbd> (hint: tab auto-completion is supported)</li>
+        <li>This exploit has several options. See the list by typing <kbd>show options</kbd>.</li>
+        <li>You can set (or change) options by typing <kbd>set [option name] [value]</kbd>.</li>
+        <q>Which port does this exploit target?</q>
+        <li>Set the target address to IP address of Metasploitable.</li>
+        <li>Run the module by typing <kbd>exploit</kbd>. You should have gained access to the machine,  there will be no shell prompt but it will accept and respond to shell commands.</li>
+        <li>Answer the following questions using the appropriate Linux/shell commands.</li>
+        <q>Which user and group are you now running as?</q>
+        <q>What is your current directory?</q>
+        <q>What is the hostname of the machine you're running on?</q>
+        <q>Submit a screenshot showing the answers to the previous 3 questions.</q>
+        <li>Exit the remote session by pressing <kbd>Ctrl+C</kbd> and typing <kbd>Y</kbd>.</li>
+        <li>Change the RPORT variable to 8180 and try the exploit again.</li>
+        <q>Did the exploit work this time as well? Explain.</q>
+    </ol>
+
+    <h3>Exploiting Tomcat</h3>
+<p>To explore the common features and differences of Metasploit modules, we will now obtain access to the Metasploitable VM through an exploit in Tomcat 5.5, a vulnerable Java-based web-server running on port 8180 on the VM.</p>
+    <ol>
+    	<li>Use the Metasploit's built-in search feature to determine which modules can potentially be used against Tomcat.</li>
+        <q>How many modules are usable against Tomcat?</q>
+    	<li>Use the <tt>info</tt> command to get more information on the <tt>tomcat_mgr_login</tt> module.</li>
+        <q>Which vulnerability does this module use to get valid user names and passwords?</q>
+        <li>Switch to (&quot;use&quot;) the <tt>tomcat_mgr_login</tt> module in Metasploit.</li>
+        <li>Configure RHOSTS and RPORT.</li>
+        <li>Set STOP_ON_SUCCESS  to true.</li>
+        <li>Run the module.</li>
+        <q>What username and password  can be used to log into Tomcat's Application Manager?</q>
+        <li>Now that we have access to Tomcat's &quot;Manager&quot; Application, 
+        we can use <tt>tomcat_mgr_deploy</tt> on it to deploy a payload of our choice. 
+        This time, we want to get a shell on the target machine.</li>
+        <li>Use the <tt>exploit/multi/http/tomcat_mgr_deploy</tt> exploit module. </li>
+        <li>Configure RHOST and RPORT.</li>
+        <li>Set USERNAME and PASSWORD to values found by <tt>tomcat_mgr_login</tt>.</li>
+        <li>Use <kbd>show payloads</kbd> to list the payloads that the exploit can deliver.</li>
+        <li>Pick the <tt>java/meterpreter/bind_tcp</tt> payload by setting the PAYLOAD option.</li>
+        <li>Now run the exploit using the <kbd>exploit</kbd> command. </li>
+        <li>You should now be in a meterpreter shell on the target system. Since this is a Java based exploit,  it is limited in the commands it can successfully execute.</li>
+        <li>Type <kbd>pwd</kbd> to see the current working directory. </li>
+        <li>Now type <kbd>shell</kbd> to gain shell access of the target machine.
+            Using the shell you can execute arbitrary commands on the Metasploitable VM to gather information or to launch further attacks.</li>
+        <q>Submit a screenshot of output of <kbd>hostname</kbd> running in a shell on the target machine.</q>
+        <li>Use Ctrl+C to leave the shell session.</li>
+    </ol>    
+    
+	<h2>Using Metasploit to mount network attacks</h2>
+    
+<h3>Denial of Service with a Flood Attack</h3>
+	<ol>
+    	<li>In a Kali terminal, type <kbd>msfconsole</kbd> to open Metasploit.</li>
+    	<li>Select the synflood module: <kbd>use auxiliary/dos/tcp/synflood</kbd></li>
+    	<li>Configure remote host and port with  <kbd>set RHOST [Metasploitable IP]</kbd>
+        followed by <kbd>set RPORT 8180</kbd>.</li>
+    	<li>Since we want to observe the attack first, start with a low number of packets: <kbd>set NUM 20</kbd>.</li>
+    	<li>Open <em>Wireshark</em> and start capturing.</li>
+    	<li>In the Metasploit console, type <kbd>exploit</kbd> to start the attack.</li>
+    	<li>After a short while, look at the captured data.</li>
+        <q>What are your observations on the IP addresses and ports of generated packets?
+        Do you see any reason for this behavior?</q>
+        <li>Run <kbd>top</kbd> on Metasploitable to observe CPU and memory usage while idle.</li>
+        <li>in Metasploit console, type <kbd>unset NUM</kbd> so that the host will send an unlimited number of packets. Start the attack.</li>
+        <li>Compare the output of <tt>top</tt> while the attack is in progress to idle values you recorded earlier.</li>
+    </ol>
+    <q>Is this attack effective? Why/why not?</q>
+    <q>Which processes are affected by the attack and why?</q>
+    <q>Submit a screenshot/console grab of <tt>top</tt> output on Metasploitable while attack is in progress.</q>
+	<p>Don't forget to stop the attack once you're done.</p>
+	   
+    <h3><em>Apache</em> Range DoS Attack</h3>
+<p>In this section, we will use a Metasploit module called apache_range_dos to conduct a flood attack using specially crafted packets targeting a vulnerable version of Apache web (HTTP) server running on the Metasploitable VM.</p>
+<p>Open up a web browser on Kali (iceweasel will do) and go to Metasploitable's IP address (http://[ip address]/). Click on <em>Mutillidae</em>, then on <em>Login/register</em>, and record how much time does it usually take for the login page to load. Then return to the Home page.</p>
+<ol>
+    <li>As in the previous section, run <kbd>top</kbd> on Metasploitable to observe the machine's load.</li>
+    <li>In Metasploit console on Kali, choose the <kbd>auxiliary/dos/http/apache_range_dos</kbd> module.</li>
+    <li>Set <tt>RHOST</tt> to victim's IP.</li>
+    <li>Set <tt>RLIMIT</tt> to 10000.</li>
+    <li>Run Wireshark and start capturing.</li>
+    <li>Type <kbd>exploit</kbd> in Metasploit console to start the attack.</li>
+    <li>After a few seconds, stop the Wireshark capture but keep the attack going.</li>
+    <q>While the attack is ongoing, try accessing the Login page of Mutillidae again from a web browser. What is the difference in response time?</q>
+    <q>Consider the output of <tt>top</tt> on Metasploitable and the response time you have measured in the previous question. What is the resulting CPU load on the target machine? Is the attack effective?</q>
+        <q>Which processes are affected by the attack and why?</q>
+    <li>Stop the attack.</li>
+</ol>
+	
+	<p>Examine the Wireshark capture of the beginning of the attack.</p>
+	<q>What protocol is used in this attack?</q>
+	<q>What kind of flags do the packets carry? What can you observe about the contents of the packets?</q>
+    <q>Suggest a few possible ways to modify the Apache server that can prevent this kind of attack or mitigate its effects.</q>
+
+<div class="lab">
+	<h2>Submission Instructions</h2>
+	<p>Please submit a single PDF file containing answers to all questions. 
+	       The file should be named with both students' last names (in alphabetical order) 
+	and &quot;lab6&quot; joined by underscores, for example: <tt>jones_smith_lab6.pdf</tt>.</p>
+	<p>To create a PDF on a lab machine, you can use the office suite (LibreOffice) 
+		word processor and <tt>File &gt; Export to PDF</tt>.</p>
+</div>
+</body>
+</html>

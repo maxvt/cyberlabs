@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Google Hacking and Social Engineering, EC 521 Fall 2013</title>
+    <link rel="stylesheet" media="all" href="../common.css" />
+    <link rel="stylesheet" media="print" href="../print.css" />
+    <script type="text/javascript" src="../jquery-2.0.3.js"></script>
+	<script type="text/javascript" src="../print.js"></script>
+</head>
+
+<body>
+    <h1>Network Attacks<span class="sln"> - Solution</span></h1>
+	<h2>EC 521 Cybersecurity, Fall 2013, Lab 5</h2>
+	
+	<div class="lab">
+    <p>This lab should be performed in groups of two students. 
+    Solutions should be submitted electronically via Blackboard Learn.</p>
+    <p>The goal of this lab is to become familiar with how computers communicate over a network and how 
+    malicious users may exploit various protocols in order to harm their victims. We will first try a 
+    variation of a NMAP scan that attempts to hide the actual attacker's identity, then use a program 
+    called <tt>ettercap</tt> to explore the ARP Cache and how we can poison it to fake our identity. 
+    Finally, we will show how the DNS Cache can be exploited in order to lead the victim to malicious destinations.</p>
+    
+	<h2 style="counter-reset: chapter">NMAP port scan using a &quot;Zombie&quot; (&quot;idle scan&quot;)</h2>
+    <p>We need to obtain a zombie machine first. Since our virtual network 
+    is (rightly) not accessible to the outside world, it has to be a 
+    separate virtual machine.</p>
+    <ol>
+        <li>Go to http://thoughtpolice.co.uk/vmware/ . </li>
+        <li>Download the <a href="http://downloads.sourceforge.net/thoughtpolicevm/freebsd-6.0-i386.zip">FreeBSD 6.0, minimal install image</a>.</li>
+        <li>Unzip it to a temporary location (/tmp on a lab machine) 
+        and run it from VMWare, making sure to set the network adapter type 
+        to the same setting as your Metasploitable VM (usually NAT). Refer 
+        to the first lab, <em>Getting Started</em>, if you need additional 
+        instructions.</li>
+        <li>Start the VM and let it boot to terminal. The root password is &quot;thoughtpolice&quot;.</li>
+        <li>Follow the &quot;Networking&quot; section of the &quot;<a href="http://www.thoughtpolice.co.uk/vmware/howto/1-minute-guide.html#freebsd6">1 minute startup guide</a>&quot; to get the network adapter of the BSD VM configured.</li>
+        <li>Perform pings between your virtual machines to verify connectivity.</li>
+    </ol>
+    <p>Now we have our zombie. Take note of its IP address and leave it running.</p>
+<ol>
+        <li>Go to Metasploitable.</li>
+        <li>To understand what the targeted machine is seeing, we want to capture the traffic from its side as well. Run <kbd>sudo tcpdump -i eth0 -w /tmp/capture.pcap -s 2000</kbd> on Metasploitable.</li>
+        <li>Go back to Kali.</li>
+        <li>Start a new capture in Wireshark.</li>
+        <li>Run <kbd>nmap -vv --reason -p1-1024 –sI [zombie IP] [target IP]</kbd></li>
+        <li>Wait for the scan to finish. </li>
+        <li>Stop the capture.</li>
+        <li>Go to Metasploitable.</li>
+        <li>Stop the capture by pressing Ctrl+C, confirm by getting the terminal prompt back.</li>
+    </ol>
+	</div>
+    
+    <q>What does nmap say is the zombie's operating system and machine class? 
+    Can you explain why?</q>
+    <q>Are the results of the idle scan consistent with the active scan 
+    we performed (restricted to ports 1-1024)? Attach screenshots of the terminal for both cases.</q> 
+    <q>According to nmap, what is the reason it decided a port is open? </q> 
+    <p>Look at the first packet that is sent between Kali and the zombie. </p> 
+    <q>What are the MAC and IP addresses of Kali?</q> 
+    <q>What are the MAC and IP addresses of the zombie?</q>
+    
+    <p>Download the capture file from Metasploitable to Kali. 
+    Open the file with Wireshark (either from command line, or from 
+    File&rarr;Open... on a running Wireshark instance). Filter the 
+    captured data to look only at the protocol and port normally associated with HTTP.</p>
+	<p>Look at the MAC and IP addresses in the first packet.</p>
+    <q>Does the IP/MAC combination match either of the results of questions 1.4 and 1.5?
+    	If not, explain which machine has sent this packet.</q> 
+    <ol>
+        <li>Now look at the response sent from the target to the zombie. </li>
+        <li> There should be another packet sent right after 
+        that from the zombie to the target. </li>
+	</ol>
+    <q>Explain the sequence of the 3 TCP packets you are seeing, 
+    focusing on the TCP flags. What is the purpose of the third packet?</q>
+    
+    <p>Filter Metasploitable's capture file to look at traffic on port 20.</p>
+    <q>What is the state of port 20, as reported by nmap? What does it mean?</q> 
+    <q>What TCP flags are set in the reply packet from the target machine? </q>
+    <q>Using your knowledge of how this scan checks the ports, is it possible 
+    for the attacker to distinguish between closed and filtered ports?</q>
+	
+<h2>ARP Cache Poisoning</h2>
+	<div class="lab">
+	<p>ARP Cache Poisoning is one of the many possible ways of performing a Man in the Middle attack. We will use a tool called <tt>ethercap</tt> that is installed on Kali and enables us to perform this attack very easily using a user-friendly graphical interface.</p>
+	<p>An ARP cache poisoning attack makes the target machine believe a certain machine
+    on the local network (usually the gateway connecting it to the outside world) has a different MAC address than it actually
+    has, and thus the traffic from the target to the certain machine would be redirected
+    to another destination on the local network, one that is usually already controlled by the attacker.</p>
+	</div>
+<ol>
+    <li>	    On Metasploitable, determine the gateway IP address 
+    (for example, by using <kbd>route –n</kbd>)</li>
+	    <li>From the same machine, ping the gateway and the attacking machine (Kali) for a few seconds.</li>
+	    <li>Find a tool that allows you to view ARP cache contents on Metasploitable.</li>
+        <q>What are the MAC Addresses of Kali and the gateway?</q>
+	    <li>On Kali, run <kbd>ettercap -G</kbd> from the terminal (or find it in menus, if that's what you prefer).</li>
+	    <li> Go to <em>Sniff&rarr;Unified Sniffing...</em> and choose the &quot;eth0&quot; interface.</li>
+	    <li>Go to <em>Hosts&rarr;Scan for Hosts</em>; if the host list does not show up at the end, go to <em>Hosts&rarr;Hosts List.</em></li>
+	    <li>Select the Metasploitable's IP and click &quot;<em>Add to Target 1</em>&quot;.</li>
+	    <li>Select the gateway IP and click &quot;<em>Add to Target 2</em>&quot;.</li>
+	    <li>Open up Wireshark and start capturing the traffic on eth0.</li>
+	    <li>Click on <em>MITM&rarr;ARP Poisoning</em></li>
+	    <li>Click on <em>Start&rarr;Start Sniffing</em> to begin the attack. </li>
+	    <li>After a short while, stop the capture in Wireshark and use a filter to view only ARP packets. Look at the first packet, specifically at the IP and MAC addresses in it.</li>
+	    <q>Explain how this attack works.</q>
+	    <li>Go to Metasploitable and view the ARP cache again.</li>
+	    <q>What is the new MAC Address associated with the Gateway? Capture
+        a screenshot/console output of the tool's output.</q>
+        <li>We want to see whether the attack was successful. Open Wireshark and start capturing the eth0 interface (you can set a filter to capture only ICMP).</li>
+	     <li>Ping the gateway (IP address) from Metasploitable.</li>
+	     <q>Looking at the resulting Wireshark capture, what is the MAC Address of the destination IP Address of those ping packets? Which machine are they actually being sent to?</q>
+</ol>
+
+<h2>DNS Cache Poisoning</h2>
+<div class="lab">
+<p>After successfully mounting a basic MITM attack, we can use an Ettercap plugin to perform a DNS Cache Poisoning attack. First, we will see how DNS cache works, and how easy it is to modify DNS results if we have control of a machine.</p>
+</div>
+<ol>
+	<div class="lab">
+    <li>Open a terminal on Kali, edit the <tt>/etc/NetworkManager/NetworkManager.conf</tt> file.</li>
+    <li>Add a line <tt>dns=dnsmasq</tt> as the 3rd line in the file (after plugins=).</li>
+    <samp>[main]
+plugins=ifupdown,keyfile
+<strong>dns=dnsmasq</strong>
+
+[ifupdown]
+managed=false</samp>
+    <li>Save the file and reboot the Kali VM.</li>
+    <li>Open a terminal on Kali and edit the <tt>/etc/hosts</tt> file. Note the existing contents of the file.</li>
+    <li>Open Wireshark and start capturing traffic on Kali.</li>
+    <!-- Some DNS server is misconfigured on the way, setting all TTLs to 5 seconds!-->
+    <li>Open another terminal. Ping a website that you have not visited from Kali: for example, <kbd>ping www.slashdot.org</kbd>. Stop after one ping and immediately try the same ping operation once more (use the up arrow in the command line to repeat the command instead of typing it again). Stop after a few pings and look at the captured traffic.</li>
+	</div>
+    <q>Which IP address was used? Is there a DNS query going out and response coming in for the address you have chosen, before the first set of pings?</q>
+    <q>Is there a DNS query going out and response coming in before the second set of pings? Why?</q>
+    <q>How long would you have to wait between the ping attempts to see two DNS queries, one for each of the ping attempts? Explain your answer.</q> 
+    <li>Now try pinging localhost (<kbd>ping localhost</kbd>), while capturing network traffic. Look at the resulting capture.</li>
+    <q>Is there a DNS query going out on the network? Why/why not?</q>
+     
+    <li>Add a new entry for <tt>facebook.com</tt> on a new line of the hosts file.</li>
+    <samp>127.0.0.1	localhost
+[Metasploitable's IP address]	www.facebook.com</samp>
+    <li>Save the hosts file and reboot Kali (try to do it without using VMWare, meaning with the correct Linux terminal command.)</li>
+    <li>After rebooting, open the browser (Iceweasel). Start a Wireshark capture.</li>
+    <li>Go to <kbd>www.facebook.com</kbd> in the browser.</li>
+    <q>Where does the Facebook domain point now on Kali? Add a screenshot of the "new
+    Facebook website" to your answer.</q>
+    <q>Do you see a DNS query in the capture? Why/why not?</q>
+</ol>
+<p>Now we will attempt to poison a machine's DNS cache without having control
+    over the machine, using <tt>ettercap</tt>.</p> 
+    <ol>
+    	<li>Edit the file <kbd>/usr/share/ettercap/etter.dns</kbd>. Find out the
+        current IP address for <tt>www.linux.org</tt> and replace all numerical addresses
+        in <tt>etter.dns</tt> corresponding to <tt>microsoft.com</tt> lookups with it - there
+        will be several lines.</li>
+        <samp>microsoft.com A [IP address for Linux.org]
+*.microsoft.com A [IP address for Linux.org]
+www.microsoft.com PTR [IP address for Linux.org]</samp>
+    	<li>Save the file, exit the editor. Run ettercap on Kali.</li>
+        <li>Poison the Metasploitable's ARP cache as described in previous section.</li>
+    	<li>Go to Plugins&rarr;Manage Plugins.</li>
+    	<li>Double-click on dns_spoof to start the DNS Poisoning.</li>
+        <li>Ping microsoft.com from Metasploitable.</li>
+        <q>Which IP address is being pinged? Does it actually belong to the Microsoft's website?</q>
+        <q>Submit a screenshot of your ettercap screen while this pinging is in progress.</q>
+        <li>Try running <kbd>lynx</kbd>, a text-based web browser, on Metasploitable.</li>
+        <li>If <tt>lynx</tt> is not installed, install it by doing the following:
+            <ol>
+                <li><kbd>sudo nano /etc/apt/sources.list</kbd></li>
+                <li>Replace &quot;us.archive&quot; with &quot;old-releases&quot; whenever you see &quot;http://us.archive.ubuntu.com&quot;, the top 4 lines (all of them are on the first screen of the editor.)</li>
+                <li><kbd>sudo apt-get update</kbd></li>
+                <li><kbd>sudo apt-get install lynx</kbd></li>
+                <li>Do not run plain &quot;lynx&quot;, always add an initial URL to navigate to (you can always change it later),  for example <kbd>lynx http://www.google.com/</kbd></li>
+            </ol>
+        </li>
+        <li>Open <tt>www.microsoft.com</tt> using <tt>lynx</tt> on Metasploitable.</li>
+        <q>Submit a screenshot of the result.</q>
+</ol>
+<div class="lab">
+<h2>Submission Instructions</h2>
+<p>Please submit a single PDF file containing answers to all questions. 
+       The file should be named with both students' last names (in alphabetical order) 
+and &quot;lab5&quot; joined by underscores, for example: <tt>jones_smith_lab5.pdf</tt>.</p>
+<p>To create a PDF on a lab machine, you can use the office suite (LibreOffice) word processor and <tt>File &gt; Export to PDF</tt>.</p>
+</div>
+</body>
+</html>
