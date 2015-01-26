@@ -1,11 +1,12 @@
 The contents of this repository, with the exceptions noted below:
 Copyright 2013, 2014 David Starobinski and Maxim Timchenko.
 All rights reserved.
-Please contact the authors to discuss usage.
 
-The published paper under /paper folder:
-The copyright for the published version has been transferred to ACM.
-See the notice in the sources and on the first page of the PDF output.
+The copyright for the published version of the paper under /paper folder
+has been transferred to ACM. This repository tracks corrections and future
+edits to the paper. Please use the link provided in README.md if you want
+to obtain or use the published version. Refer to copyright notice 
+in the sources and on the first page of the PDF output for more details.
 
 Inconsolata - http://www.levien.com/type/myfonts/inconsolata.html
 Copyright 2006 Raph Levien.
