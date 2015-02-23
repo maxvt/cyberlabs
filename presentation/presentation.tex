@@ -119,12 +119,15 @@
                 			\begin{itemize}
                     			\item Set-up and maintenance
                     			\item Scaling?
-                    			\item Responsiveness?
+                    			\item Bandwidth requirements
+					\item Example: Tele-Lab [10]
                 			\end{itemize}
               		\end{column}
             
             		\begin{column}{0.5\textwidth}
-                 		Graphics of the architecture
+				\begin{center}
+                 		\includegraphics[width=0.6\textwidth]{centralized-virt.png}
+				\end{center}
               		\end{column}
             		\end{columns}
 			}
@@ -135,13 +138,17 @@
              		\begin{column}{0.5\textwidth}
                 			\begin{itemize}
                     			\item Administration
+					\item Complicated architecture
                     			\item Cost!
-                    			\item Worst responsiveness\\(traffic and delay)
+                    			\item Potentially, worst responsiveness\\(traffic and delay)
+					\item Example: Salah [6] on AWS
                 			\end{itemize}
               		\end{column}
             
             		\begin{column}{0.5\textwidth}
-                 		Graphics of the architecture
+						\begin{center}
+                 		\includegraphics[width=0.6\textwidth]{cloud-virt.png}
+				\end{center}
               		\end{column}
             		\end{columns}		
 			}
@@ -158,15 +165,63 @@
               		\end{column}
             
             		\begin{column}{0.5\textwidth}
-                 		Graphics of the architecture
+				\begin{center}
+                 		\includegraphics[width=0.4\textwidth]{local-virt.png}
+				\end{center}
               		\end{column}
             		\end{columns}		
 			}	
 		\end{block}		
 	\end{frame}	
 	
+	\begin{frame}{Existing Lab Sets}
+		\begin{itemize}	
+			\item The SEED project [2]
+			\begin{itemize}	
+				\item Comprehensive, but not a lot of overlap in topics (!)
+				\item Exploratory in nature
+			\end{itemize}		
+			\item OWASP Hackademic [5]
+			\begin{itemize}	
+				\item Web applications security
+				\item More elaborate setup required
+			\end{itemize}
+			\item Many papers with one or two labs
+			\begin{itemize}	
+				\item Reconciling environments, writing styles...
+				\item Difficult to refer to previous material
+			\end{itemize}
+			\item Internet sources, e.g. ``How to use Metasploitable to hack X''
+			\begin{itemize}
+				\item Usually very narrow in scope and with poor style
+				\item A walkthrough, not an assignment
+			\end{itemize}
+		\end{itemize}	
+	\end{frame}
+	
 	\section{Contribution}	
 	\subsection{dummy-name}
+
+	\begin{frame}{Detailed Environment Architecture}
+		\includegraphics[page=1,width=\textwidth]{../paper/ec521_hostmap.pdf}
+	\end{frame}
+
+	\begin{frame}{VM Image Sets}
+		\includegraphics[page=1,width=\textwidth,clip=true, trim=0 0 0 1in]{vm-image-sets.pdf}
+	\end{frame}
+
+	\begin{frame}{Resource Requirements}
+		\includegraphics[page=2,width=\textwidth, clip=true, trim=0.5in 6in 1in 0.5in]{Resources.pdf}
+	\end{frame}
+		
+	\begin{frame}{Studying Cybersecurity Anywhere}
+		\begin{center}
+		\includegraphics[width=0.8\textwidth]{coffeeshop_whitehat.jpg}
+		
+		{\tiny Photo: Alper Cugun, Flickr, CC-BY 2.0 | Whitehat Icon: Open Security Architecture, CC-BY-SA}
+		\end{center}
+	\end{frame}
+			
 	\begin{frame}{Future Work}
 		\begin{itemize}	
 			\item Item
@@ -199,7 +254,7 @@
 		\end{itemize}
 	\end{frame}
 	
-	\begin{frame}{Questions}
+	\begin{frame}{Thank you for your attention!}
 		The sources for this talk and several of the labs can be found in our GitHub repository:
 		\vfill
 		\begin{center}
