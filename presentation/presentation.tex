@@ -13,83 +13,87 @@
 		\titlepage
 	\end{frame}
 	
-	\begin{frame}{Speaker}
-		\begin{itemize}
-			\item Lab assistant for \emph{Cybersecurity} course, Fall 2013
-			\item TA for \emph{Cybersecurity} course, Fall 2014
-			\item 120 students
-			\item 3 professors, 3 sets of topics
-			\item Different environments, assignments, approaches
-		\end{itemize}
-	\end{frame}
-	
-	\begin{frame}
-		\titlepage
-	\end{frame}
-	
-	\section{Our Goal}
+	\section{Motivation}
 	\subsection{Goal}
-	\begin{frame}{``Offensive''?}
+	
+	\begin{frame}{Goals for a Laboratory Environment}
 		\begin{center}
-			\includegraphics[width=0.6\textwidth]{parental-advisory-wikipedia.png}
+    		\begin{columns}[t]
+		\begin{column}{0.1\textwidth}
+		~
+		\end{column}
+     		\begin{column}{0.4\textwidth}
+            		Must Have\\~
+            		\begin{itemize}
+            			\item Security\\~
+            			\item Isolation
+            		\end{itemize}		
+      		\end{column}
+    
+    		\begin{column}{0.4\textwidth}
+            		Stretch Goals\\~
+            		\begin{itemize}
+            			\item Redundancy\\~
+            			\item Persistence
+            		\end{itemize}		
+      		\end{column}
+    		\end{columns}			
 		\end{center}
 	\end{frame}
-	
-	\begin{frame}{``Offensive''}
-		\begin{itemize}
-			\item Attacker mindset vs. developer mindset
-			\begin{itemize}
-				\item ``How can I make this do something else''?
-				\item Low-level, in-depth understanding
-				\item Challenge bad assumptions
-			\end{itemize}
-			\vfill
-			\item Both sides of the coin
-			\begin{itemize}			
-				\item Looking only at defense makes attacks ``abstract''
-				\item Immediate reaction to trying attacks out
-				\item Then, discuss how to defend
-			\end{itemize}		
-			\vfill		
-			\item Students love it!
-		\end{itemize}
-	\end{frame}
 
-	\begin{frame}{``Real-world''}
+	\begin{frame}{``Real-world'' and ``Offensive''}
 		\begin{itemize}
 			\item Use the tools commonly used within the industry	
-			\begin{itemize}			
-				\item Practical experience
-				\item Reuse
-				\item Plenty of reference information
-			\end{itemize}				
+%			\begin{itemize}			
+%				\item Practical experience
+%				\item Reuse
+%				\item Plenty of reference information
+%			\end{itemize}				
 			\item Discuss actual exploits, demonstrate issues vividly
 			\begin{itemize}
 				\item Metasploit modules
 				\item Social engineering
 			\end{itemize}
-			\item Cover current events (e.g. 2014: Shellshock)
+			\item Cover current events (e.g. 2014: Shellshock, Heartbleed)
+			\item Attacker mindset vs. developer mindset
 		\end{itemize}		
-	\end{frame}
-
-	\begin{frame}{``Laboratory Environment''}
-		\begin{itemize}
-			\item Security
-			\item Isolation
-			\item Hardware Independence
-		\end{itemize}			
+		~
+		\begin{center}
+			\includegraphics[width=0.2\textwidth]{heartbleed.png}
+		\end{center}
 	\end{frame}
 
 	\begin{frame}{``Simple''}
 		\begin{itemize}
-			\item Reuse available components
 			\item Simple to install and use
-			\item Resource efficient
+			\item Reuse available parts
+			\item This is an {\em introductory} course
 		\end{itemize}	
 	\end{frame}
+		
+%	\begin{frame}{``Offensive''}
+%		\begin{itemize}
+%			\item Attacker mindset vs. developer mindset
+%			\begin{itemize}
+%				\item ``How can I make this do something else''?
+%				\item Low-level, in-depth understanding
+%				\item Challenge bad assumptions
+%			\end{itemize}
+%			\vfill
+%			\item Both sides of the coin
+%			\begin{itemize}			
+%				\item Looking only at defense makes attacks ``abstract''
+%				\item Immediate reaction to trying attacks out
+%				\item Then, discuss how to defend
+%			\end{itemize}		
+%			\vfill		
+%			\item Students love it!
+%		\end{itemize}
+%	\end{frame}
 
-	\section{Related Work}
-	\subsection{dummy name}
+	\section{Environment}	
+	\subsection{dummy-name}
+	
 	\begin{frame}{Environments}
 		Local isolated network containing actual hardware
 		\vfill
@@ -99,7 +103,6 @@
         				\item Expensive
         				\item Limited flexibility
         				\item Limited sharing
-        				\item Resettable?
     			\end{itemize}
   		\end{column}
 
@@ -118,8 +121,7 @@
              		\begin{column}{0.5\textwidth}
                 			\begin{itemize}
                     			\item Set-up and maintenance
-                    			\item Scaling?
-                    			\item Bandwidth requirements
+                    			\item Limited scaling
 					\item Example: Tele-Lab [10]
                 			\end{itemize}
               		\end{column}
@@ -137,9 +139,8 @@
             		\begin{columns}
              		\begin{column}{0.5\textwidth}
                 			\begin{itemize}
-                    			\item Administration
 					\item Complicated architecture
-                    			\item Cost!
+                    			\item Expensive scaling
                     			\item Potentially, worst responsiveness\\(traffic and delay)
 					\item Example: Salah [6] on AWS
                 			\end{itemize}
@@ -161,6 +162,7 @@
                     			\item Easy set-up
                     			\item No scaling issues
                     			\item Best responsiveness
+					\item Example: SEED [2] on VMWare/VirtualBox
                 			\end{itemize}
               		\end{column}
             
@@ -173,34 +175,6 @@
 			}	
 		\end{block}		
 	\end{frame}	
-	
-	\begin{frame}{Existing Lab Sets}
-		\begin{itemize}	
-			\item The SEED project [2]
-			\begin{itemize}	
-				\item Comprehensive, but not a lot of overlap in topics (!)
-				\item Exploratory in nature
-			\end{itemize}		
-			\item OWASP Hackademic [5]
-			\begin{itemize}	
-				\item Web applications security
-				\item More elaborate setup required
-			\end{itemize}
-			\item Many papers with one or two labs
-			\begin{itemize}	
-				\item Reconciling environments, writing styles...
-				\item Difficult to refer to previous material
-			\end{itemize}
-			\item Internet sources, e.g. ``How to use Metasploitable to hack X''
-			\begin{itemize}
-				\item Usually very narrow in scope and with poor style
-				\item A walkthrough, not an assignment
-			\end{itemize}
-		\end{itemize}	
-	\end{frame}
-	
-	\section{Contribution}	
-	\subsection{dummy-name}
 
 	\begin{frame}{Detailed Environment Architecture}
 		\includegraphics[page=1,width=\textwidth]{../paper/ec521_hostmap.pdf}
@@ -209,6 +183,47 @@
 	\begin{frame}{VM Image Sets}
 		\includegraphics[page=1,width=\textwidth,clip=true, trim=0 0 0 1in]{vm-image-sets.pdf}
 	\end{frame}
+	
+	\begin{frame}{The Attacker - Kali Linux}
+            		\begin{columns}
+             		\begin{column}{0.5\textwidth}
+                			\begin{itemize}
+                    			\item Pentesting and Auditing
+                    			\item Based on Debian Wheezy
+                    			\item Hundreds of tools
+					\item Top 10: Aircrack, Burp Suite, Hydra, John, Maltego, Metasploit, NMAP, ZAP, SQLmap, Wireshark
+					\item Maintained by {\em Offensive Security}
+                			\end{itemize}
+              		\end{column}
+            
+            		\begin{column}{0.5\textwidth}
+				\begin{center}
+                 		\includegraphics[width=\textwidth]{kali-bg.png}
+				\end{center}
+              		\end{column}
+            		\end{columns}				
+	\end{frame}
+	
+	\begin{frame}{The Target - Metasploitable 2}
+            		\begin{columns}
+             		\begin{column}{0.5\textwidth}
+                			\begin{itemize}
+                    			\item Intentionally Vulnerable VM
+                    			\item Based on Ubuntu
+                    			\item Many vulnerabilities of various obviousness
+					\item Two intentionally vulnerable web applications (DWVA, Mutillidae)
+					\item Mutilidae covers all the top ten OWASP vulnerabilities and more
+					\item No GUI
+                			\end{itemize}
+              		\end{column}
+            
+            		\begin{column}{0.5\textwidth}
+				\begin{center}
+                 		\includegraphics[width=\textwidth]{metasploitable2_booted.png}
+				\end{center}
+              		\end{column}
+            		\end{columns}				
+	\end{frame}	
 
 	\begin{frame}{Resource Requirements}
 		\includegraphics[page=2,width=\textwidth, clip=true, trim=0.5in 6in 1in 0.5in]{Resources.pdf}
@@ -221,7 +236,73 @@
 		{\tiny Photo: Alper Cugun, Flickr, CC-BY 2.0 | Whitehat Icon: Open Security Architecture, CC-BY-SA}
 		\end{center}
 	\end{frame}
-			
+	
+	\section{Labs}
+	\subsection{dummy-name}
+	\begin{frame}{Existing Lab Sets}
+		\begin{columns}
+             		\begin{column}{0.5\textwidth}
+				\begin{center}
+					\includegraphics[width=0.4\textwidth]{seed-labs-logo.png} \\
+	                			The SEED Project [2]
+				\end{center}
+              		\end{column}
+			\pause		
+            		\begin{column}{0.5\textwidth}			
+				\begin{center}
+					\includegraphics[width=0.8\textwidth]{owasp-logo.jpg} \\
+					\includegraphics[width=\textwidth]{hackademic-logo.png}
+					
+					OWASP Hackademic [5]
+				\end{center}
+              		\end{column}
+		\end{columns}			
+		\vfill
+		\begin{columns}
+            		\begin{column}{0.5\textwidth}
+            		\pause	
+			\begin{center}	
+			Many papers containing\\one or two labs each
+			\end{center}
+             		\end{column}
+			\pause
+            		\begin{column}{0.5\textwidth}				
+			\begin{center}
+			Internet tutorials, e.g. ``How to use Metasploitable to hack X''
+			\end{center}
+              		\end{column}
+		\end{columns}	
+	\end{frame}
+	
+	\begin{frame}{Lab Topics and Dependencies}
+		\begin{center}
+		\includegraphics[width=\textwidth,clip=true, trim=0.85in 5in 4.5in 1.2in]{../paper/dependencies-between-labs.pdf}
+		\end{center}		
+	\end{frame}	
+	
+	\begin{frame}{Sample Page}
+		\begin{center}
+		\fbox{\includegraphics[width=0.5\textwidth]{lab7-sample-page.png}}
+		\end{center}		
+	\end{frame}	
+	
+	\begin{frame}{Sample Solution Page}
+		\begin{center}
+		\fbox{\includegraphics[width=0.5\textwidth]{lab7-solution-page.png}}
+		\end{center}		
+	\end{frame}
+	
+	\begin{frame}{Production Workflow (PDF)}
+		\includegraphics[width=\textwidth, clip=true, trim=1.3in 3in 3in 0.5in]{workflow.pdf}
+	\end{frame}			
+
+	\begin{frame}{Production Workflow (HTML)}
+%		\includegraphics[width=\textwidth, clip=true, trim=1.3in 3in 3in 0.5in]{workflow_html.pdf}
+	\end{frame}	
+		
+	\section{Future Work}
+	\subsection{dummy-name}
+				
 	\begin{frame}{Future Work}
 		\begin{itemize}	
 			\item Item
@@ -232,25 +313,25 @@
 	\subsection{dummy-name}	
 	\begin{frame}{Summary}
 		\begin{itemize}
-			\item	A virtual-machine based environment for teaching cybersecurity
-			\begin{itemize}			
-				\item Requires no additional infrastructure
-				\item Runs well on current hardware, including laptops
-			\end{itemize}	
+			\item	A virtual-machine based environment for teaching practical cybersecurity
+%			\begin{itemize}			
+%				\item Requires no additional infrastructure
+%				\item Runs well on current hardware, including laptops
+%			\end{itemize}	
 			\pause			
-			\item A set of labs based on the environment
-			\begin{itemize}			
-				\item A choice of topics for an introductory course
-				\item Structured, more guidance / less exploratory
-				\item Try to build each lab on previous ones to reinforce
-			\end{itemize}	
+			\item A set of structured labs based on the environment
+%			\begin{itemize}			
+%				\item A choice of topics for an introductory course
+%				\item Structured, guided assignments
+%				\item Try to build each lab on previous ones to reinforce
+%			\end{itemize}	
 			\pause
 			\item Directions for future work
-			\begin{itemize}			
-				\item Automated grading a prerequisite for scaling
-				\item How to maintain the VMs going forward?
-				\item More architectures (mobile/embedded) and network devices (SDN)
-			\end{itemize}								
+%			\begin{itemize}			
+%				\item Automated grading a prerequisite for scaling
+%				\item How to maintain and extend the VMs going forward?
+%				\item Add architectures (mobile/IoT) and network devices (SDN)
+%			\end{itemize}								
 		\end{itemize}
 	\end{frame}
 	
