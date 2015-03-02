@@ -212,7 +212,7 @@
                     			\item Based on Ubuntu
                     			\item Many vulnerabilities of various obviousness
 					\item Two intentionally vulnerable web applications (DWVA, Mutillidae)
-					\item Mutilidae covers all the top ten OWASP vulnerabilities and more
+%					\item Mutilidae covers all the top ten OWASP vulnerabilities and more
 					\item No GUI
                 			\end{itemize}
               		\end{column}
@@ -268,7 +268,7 @@
 			\pause
             		\begin{column}{0.5\textwidth}				
 			\begin{center}
-			Internet tutorials, e.g. ``How to use Metasploitable to hack X''
+			Internet tutorials, e.g. ``How to use Metasploit to hack X''
 			\end{center}
               		\end{column}
 		\end{columns}	
@@ -276,9 +276,29 @@
 	
 	\begin{frame}{Lab Topics and Dependencies}
 		\begin{center}
-		\includegraphics[width=\textwidth,clip=true, trim=0.85in 5in 4.5in 1.2in]{../paper/dependencies-between-labs.pdf}
+		\includegraphics[width=\textwidth,clip=true, trim=0.85in 4.75in 4.5in 1.2in]{../paper/dependencies-between-labs.pdf}
 		\end{center}		
 	\end{frame}	
+	
+	\begin{frame}{Network Attacks Lab}
+            		\begin{columns}
+             		\begin{column}{0.5\textwidth}
+                			\begin{itemize}
+                    			\item Zombie scan with {\texttt nmap}
+                    			\item ARP Poisoning
+					\item DNS resolving and caching
+                    			\item DNS Poisoning
+					\item Example: poison Metasploitable's DNS and replace one website with another
+                			\end{itemize}
+              		\end{column}
+            
+            		\begin{column}{0.5\textwidth}
+				\begin{center}
+                 		\includegraphics[width=\textwidth]{../labs/network-attacks/the-new-facebook.png}
+				\end{center}
+              		\end{column}
+            		\end{columns}				
+	\end{frame}		
 	
 	\begin{frame}{Sample Page}
 		\begin{center}
@@ -297,15 +317,19 @@
 	\end{frame}			
 
 	\begin{frame}{Production Workflow (HTML)}
-%		\includegraphics[width=\textwidth, clip=true, trim=1.3in 3in 3in 0.5in]{workflow_html.pdf}
+		\includegraphics[width=\textwidth, clip=true, trim=1.3in 3in 3in 0.5in]{online-workflow.pdf}
 	\end{frame}	
 		
 	\section{Future Work}
 	\subsection{dummy-name}
 				
-	\begin{frame}{Future Work}
+	\begin{frame}{Directons for Future Work}
 		\begin{itemize}	
-			\item Item
+			\item Updates to Metasploitable
+			\item Easier modifications to Metasploitable
+			\item Adding other OS images and platforms
+			\item Adding network device simulation\\(routers, peripherals. SDN?)
+			\item Automated grading
 		\end{itemize}
 	\end{frame}
 
