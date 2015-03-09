@@ -3,7 +3,23 @@
 
 \usepackage{graphicx}
 
-\usetheme{Singapore} % Dresden?
+\useoutertheme{infolines}
+\usetheme{Singapore}
+
+\setbeamertemplate{footline}{
+    \leavevmode
+    \hbox{
+        \begin{beamercolorbox}[wd=.666666\paperwidth,ht=2.25ex,dp=1ex,left]{title in head/foot}
+        \usebeamerfont{title in head/foot}\insertshorttitle
+        \end{beamercolorbox}
+        \begin{beamercolorbox}[wd=.333333\paperwidth,ht=2.25ex,dp=1ex,right]{date in head/foot}
+        \usebeamerfont{date in head/foot}\hspace*{2em}
+        \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+        \end{beamercolorbox}
+    }
+    \vskip 0pt
+}
+
 \title{A Simple Laboratory Environment \\for Real-World Offensive Security Education}
 \author{Maxim Timchenko \and David Starobinski}
 \institute{Electrical and Computer Engineering Department\\Boston University}
@@ -11,6 +27,15 @@
 \begin{document}
 	\begin{frame}
 		\titlepage
+	\end{frame}
+	
+	\begin{frame}{Outline}
+		\begin{enumerate}
+			\item Motivation / Goals
+			\item Environment
+			\item Labs
+			\item Future Work
+		\end{enumerate}
 	\end{frame}
 	
 	\section{Motivation}
@@ -23,19 +48,26 @@
 		~
 		\end{column}
      		\begin{column}{0.4\textwidth}
-            		Must Have\\~
+            		Must Have
             		\begin{itemize}
-            			\item Security\\~
-            			\item Isolation
+            			\item Security
+            			\item Separation
             		\end{itemize}		
+			~\\		
+            		Stretch Goals
+            		\begin{itemize}
+            			\item Redundancy
+            			\item Persistence
+            		\end{itemize}			
       		\end{column}
     
-    		\begin{column}{0.4\textwidth}
-            		Stretch Goals\\~
-            		\begin{itemize}
-            			\item Redundancy\\~
-            			\item Persistence
-            		\end{itemize}		
+    		\begin{column}{0.5\textwidth}
+			Simple
+			\begin{itemize}
+				\item Simple to install and use
+				\item Reuse available parts
+				\item This is an {\em introductory} course
+			\end{itemize}				
       		\end{column}
     		\end{columns}			
 		\end{center}
@@ -43,12 +75,7 @@
 
 	\begin{frame}{``Real-world'' and ``Offensive''}
 		\begin{itemize}
-			\item Use the tools commonly used within the industry	
-%			\begin{itemize}			
-%				\item Practical experience
-%				\item Reuse
-%				\item Plenty of reference information
-%			\end{itemize}				
+			\item Practice topics using tools common within the industry			
 			\item Discuss actual exploits, demonstrate issues vividly
 			\begin{itemize}
 				\item Metasploit modules
@@ -62,34 +89,6 @@
 			\includegraphics[width=0.2\textwidth]{heartbleed.png}
 		\end{center}
 	\end{frame}
-
-	\begin{frame}{``Simple''}
-		\begin{itemize}
-			\item Simple to install and use
-			\item Reuse available parts
-			\item This is an {\em introductory} course
-		\end{itemize}	
-	\end{frame}
-		
-%	\begin{frame}{``Offensive''}
-%		\begin{itemize}
-%			\item Attacker mindset vs. developer mindset
-%			\begin{itemize}
-%				\item ``How can I make this do something else''?
-%				\item Low-level, in-depth understanding
-%				\item Challenge bad assumptions
-%			\end{itemize}
-%			\vfill
-%			\item Both sides of the coin
-%			\begin{itemize}			
-%				\item Looking only at defense makes attacks ``abstract''
-%				\item Immediate reaction to trying attacks out
-%				\item Then, discuss how to defend
-%			\end{itemize}		
-%			\vfill		
-%			\item Students love it!
-%		\end{itemize}
-%	\end{frame}
 
 	\section{Environment}	
 	\subsection{dummy-name}
@@ -115,8 +114,8 @@
 	\end{frame}
 	
 	\begin{frame}{Environment Virtualization}
+			\only<1>{	
 		\begin{block}{Centralized On Premises}
-			\only<1>{
             		\begin{columns}
              		\begin{column}{0.5\textwidth}
                 			\begin{itemize}
@@ -132,30 +131,33 @@
 				\end{center}
               		\end{column}
             		\end{columns}
-			}
+			
 		\end{block}
-		\begin{block}{Cloud}
+		}
 			\only<2>{
+		
+		\begin{block}{Cloud}
             		\begin{columns}
-             		\begin{column}{0.5\textwidth}
+             		\begin{column}{0.6\textwidth}
                 			\begin{itemize}
-					\item Complicated architecture
+					\item More complex architecture
                     			\item Expensive scaling
                     			\item Potentially, worst responsiveness\\(traffic and delay)
 					\item Example: Salah [6] on AWS
+					\item Yesterday: Weiss et al. - EDUrange
                 			\end{itemize}
               		\end{column}
             
-            		\begin{column}{0.5\textwidth}
+            		\begin{column}{0.4\textwidth}
 						\begin{center}
-                 		\includegraphics[width=0.6\textwidth]{cloud-virt.png}
+                 		\includegraphics[width=0.8\textwidth]{cloud-virt.png}
 				\end{center}
               		\end{column}
             		\end{columns}		
-			}
-		\end{block}
+			
+		\end{block}}
+		\only<3>{
 		\begin{block}{Local}
-			\only<3>{
             		\begin{columns}
              		\begin{column}{0.5\textwidth}
                 			\begin{itemize}
@@ -172,12 +174,13 @@
 				\end{center}
               		\end{column}
             		\end{columns}		
-			}	
-		\end{block}		
+		\end{block}	}	
 	\end{frame}	
 
 	\begin{frame}{Detailed Environment Architecture}
-		\includegraphics[page=1,width=\textwidth]{../paper/ec521_hostmap.pdf}
+		\begin{center}
+		\includegraphics[page=1,width=0.8\textwidth]{../paper/ec521_hostmap.pdf}
+		\end{center}
 	\end{frame}
 
 	\begin{frame}{VM Image Sets}
@@ -239,6 +242,14 @@
 	
 	\section{Labs}
 	\subsection{dummy-name}
+	\begin{frame}{Audience}
+	\begin{itemize}
+		\item A mix of undergraduate and graduate students
+		\item A variety of skill levels
+		\item Requirements: a programming language, basics of Linux
+	\end{itemize}
+	\end{frame}
+	
 	\begin{frame}{Existing Lab Sets}
 		\begin{columns}
              		\begin{column}{0.5\textwidth}
@@ -300,24 +311,24 @@
             		\end{columns}				
 	\end{frame}		
 	
-	\begin{frame}{Sample Page}
+	\begin{frame}{Sample Lab Page}
 		\begin{center}
-		\fbox{\includegraphics[width=0.5\textwidth]{lab7-sample-page.png}}
+		\includegraphics[width=\textwidth, clip=true, trim=0 1in 0 5in]{lab7-sample-page.png}
 		\end{center}		
 	\end{frame}	
 	
 	\begin{frame}{Sample Solution Page}
 		\begin{center}
-		\fbox{\includegraphics[width=0.5\textwidth]{lab7-solution-page.png}}
+		\fbox{\includegraphics[width=0.45\textwidth]{lab7-solution-page.png}}
 		\end{center}		
 	\end{frame}
 	
 	\begin{frame}{Production Workflow (PDF)}
-		\includegraphics[width=\textwidth, clip=true, trim=1.3in 3in 3in 0.5in]{workflow.pdf}
+		\includegraphics[width=\textwidth, clip=true, trim=1.3in 3in 3in 0.75in]{workflow.pdf}
 	\end{frame}			
 
 	\begin{frame}{Production Workflow (HTML)}
-		\includegraphics[width=\textwidth, clip=true, trim=1.3in 3in 3in 0.5in]{online-workflow.pdf}
+		\includegraphics[width=\textwidth, clip=true, trim=1.3in 3in 3in 1in]{online-workflow.pdf}
 	\end{frame}	
 		
 	\section{Future Work}
@@ -328,7 +339,7 @@
 			\item Updates to Metasploitable
 			\item Easier modifications to Metasploitable
 			\item Adding other OS images and platforms
-			\item Adding network device simulation\\(routers, peripherals. SDN?)
+			\item Adding network device simulation\\(routers, peripherals)
 			\item Automated grading
 		\end{itemize}
 	\end{frame}
