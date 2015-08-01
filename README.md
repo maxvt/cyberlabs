@@ -1,6 +1,7 @@
 A Simple Laboratory Environment for Real-World Offensive Security Education
 ===========================================================================
-This repository complements the paper to be published at SIGCSE 2015.
+This repository complements the paper that was presented at SIGCSE 2015 and
+is available [in the proceedings](http://dl.acm.org/citation.cfm?id=2677225).
 
 Labs
 ----
@@ -37,7 +38,7 @@ Paper
 -----
 The sources of the paper are provided here to allow for easy integration of
 corrections and future updates. A rendered PDF version is intentionally not
-provided--please use the official version at (TODO ACM link) or compile the
+provided--please use [the official version](http://dl.acm.org/citation.cfm?id=2677225) or compile the
 latest version from source. You will need a recent installation of LaTeX
 (including biber and other referenced packages) to compile the paper.
 
